@@ -38,7 +38,6 @@ DJANGO_APPS = [
 ]
 
 OWN_APPS = [
-    ...
 ]
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS

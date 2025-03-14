@@ -15,8 +15,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import Http404
+from django.shortcuts import render
 from django.urls import path
+from fake_db import user_db
+
+_db = user_db
+
+
+def user_list(request):
+    names = [{'id': key, 'name': value['이름']} for key, value in _db.items()]
+    return render(request=request, template_name='user_list.html', context={'data': names})
+
+
+def user_info(request, user_id):
+    if user_id not in _db:
+        raise Http404('User not found')
+    user = _db[user_id]
+    return render(request=request, template_name='user_info.html', context={'data': user})
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users/', user_list, name='user_list'),
+    path('users/<int:user_id>/', user_info, name='user_info'),
 ]
