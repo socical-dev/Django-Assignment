@@ -27,7 +27,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+"""
+# Django에서 기본적으로 제공되는 APP과 본인이 만든 APP을 구분하여 관리하기 위해
+# INSTALLED_APPS 를 DJANGO_APPS 와 OWN_APPS 로 분리합니다.
+"""
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
