@@ -42,7 +42,7 @@ DJANGO_APPS = [
 ]
 
 OWN_APPS = [
-    ...
+    'todo',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS
