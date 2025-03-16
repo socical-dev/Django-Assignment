@@ -43,6 +43,7 @@ DJANGO_APPS = [
 
 OWN_APPS = [
     'todo',
+    'users',
 ]
 
 THIRD_PARTY_APPS = [
@@ -50,6 +51,9 @@ THIRD_PARTY_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS + THIRD_PARTY_APPS
+
+LOGIN_REDIRECT_URL = '/todo/' # 로그인 후에 To Do List 페이지로 이동하기 위함
+LOGOUT_REDIRECT_URL = '/accounts/login/' # 로그아웃 시 로그인 페이지로 이동하기 위함
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
