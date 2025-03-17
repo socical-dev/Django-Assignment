@@ -1,24 +1,37 @@
 from django.contrib import admin
 from todo.models import Todo, Comment
 
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+    fields = ('message', 'user')
+
 @admin.register(Todo)
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'is_completed', 'start_date', 'end_date')
+    list_display = ('id', 'user', 'title', 'description', 'is_completed', 'start_date', 'end_date')
     list_filter = ('is_completed',)
-    search_fields = ('title',) #검색 필터
-    ordering = ('id',)  #정렬 방식 (앞에 - 를 붙이면 DESC, Default=ASC)
-    fieldsets = ( # 특정 레코드 추가/수정할 때 나오는 폼의 필드 순서 및 표시
+    search_fields = ('title',)
+    ordering = ('start_date',)
+    list_display_links = ('title',)
+    fieldsets = (
         ('Todo Info', {
-            'fields': ('title', 'description', 'is_completed')
+            'fields': ('user', 'title', 'description', 'completed_image', 'is_completed')
         }),
         ('Date Range', {
             'fields': ('start_date', 'end_date')
         }),
     )
+    inlines = [CommentInline]
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'message', 'created_at', 'updated_at')
-    list_filter = ('user', 'message',)
-    search_fields = ('message',)
-    ordering = ('id',)  # 정렬 방식 (앞에 - 를 붙이면 DESC, Default=ASC)
+    list_display = ('id', 'todo', 'user', 'message', 'created_at')
+    list_filter = ('todo', 'user')
+    search_fields = ('message', 'user')
+    ordering = ('-created_at',)
+    list_display_links = ('message',)
+    fieldsets = (
+        ('Comment Info', {
+            'fields': ('todo', 'user', 'message')
+        }),
+    )
