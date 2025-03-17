@@ -1,5 +1,5 @@
 from django.contrib import admin
-from todo.models import Todo
+from todo.models import Todo, Comment
 
 @admin.register(Todo)
 class TodoAdmin(admin.ModelAdmin):
@@ -15,3 +15,10 @@ class TodoAdmin(admin.ModelAdmin):
             'fields': ('start_date', 'end_date')
         }),
     )
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'message', 'created_at', 'updated_at')
+    list_filter = ('user', 'message',)
+    search_fields = ('message',)
+    ordering = ('id',)  # 정렬 방식 (앞에 - 를 붙이면 DESC, Default=ASC)
