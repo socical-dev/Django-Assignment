@@ -52,6 +52,17 @@ THIRD_PARTY_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS + THIRD_PARTY_APPS
 
+STATIC_URL = '/static/'
+STATIC_DIR = BASE_DIR / 'static'
+
+# 정책 파일들을 모아 관리하기 위해 만든 리스트
+STATICFILES_DIRS = [
+    STATIC_DIR
+]
+
+# 배포 시 한 번에 배포하기 위함
+STATIC_ROOT = BASE_DIR / '.static_root'
+
 LOGIN_REDIRECT_URL = '/cbv/todo/' # 로그인 후에 To Do List 페이지로 이동하기 위함
 LOGOUT_REDIRECT_URL = '/accounts/login/' # 로그아웃 시 로그인 페이지로 이동하기 위함
 
